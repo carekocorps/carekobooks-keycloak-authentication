@@ -11,17 +11,14 @@ import org.keycloak.provider.ProviderConfigProperty;
 
 import java.util.List;
 
+import static org.keycloak.models.AuthenticationExecutionModel.Requirement.DISABLED;
+import static org.keycloak.models.AuthenticationExecutionModel.Requirement.REQUIRED;
+
 @AutoService(AuthenticatorFactory.class)
 public class IdpAuthenticatorFactory implements AuthenticatorFactory {
 
-    private static final AuthenticationExecutionModel.Requirement[] REQUIREMENT_CHOICES = {
-            AuthenticationExecutionModel.Requirement.DISABLED,
-            AuthenticationExecutionModel.Requirement.REQUIRED
-    };
-
-    private String jdbcUrl;
-    private String dbUsername;
-    private String dbPassword;
+    private static final AuthenticationExecutionModel.Requirement[] REQUIREMENT_CHOICES = {DISABLED, REQUIRED};
+    private static final IdpAuthenticator SINGLETON = new IdpAuthenticator();
 
     @Override
     public String getId() {
@@ -60,23 +57,17 @@ public class IdpAuthenticatorFactory implements AuthenticatorFactory {
 
     @Override
     public List<ProviderConfigProperty> getConfigProperties() {
-        return List.of(
-                new ProviderConfigProperty("jdbcUrl", "JDBC URL", "", ProviderConfigProperty.STRING_TYPE, ""),
-                new ProviderConfigProperty("dbUsername", "Database Username", "", ProviderConfigProperty.STRING_TYPE, ""),
-                new ProviderConfigProperty("dbPassword", "Database Password", "", ProviderConfigProperty.STRING_TYPE, "")
-        );
+        return List.of();
     }
 
     @Override
     public Authenticator create(KeycloakSession keycloakSession) {
-        return new IdpAuthenticator(jdbcUrl, dbUsername, dbPassword);
+        return SINGLETON;
     }
 
     @Override
     public void init(Config.Scope scope) {
-        jdbcUrl = scope.get("jdbcUrl");
-        dbUsername = scope.get("dbUsername");
-        dbPassword = scope.get("dbPassword");
+        // Not initialization required
     }
 
     @Override

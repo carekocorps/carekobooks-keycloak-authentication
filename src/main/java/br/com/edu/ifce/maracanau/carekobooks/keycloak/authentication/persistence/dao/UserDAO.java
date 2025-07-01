@@ -1,27 +1,20 @@
 package br.com.edu.ifce.maracanau.carekobooks.keycloak.authentication.persistence.dao;
 
 import br.com.edu.ifce.maracanau.carekobooks.keycloak.authentication.persistence.model.User;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
-import lombok.RequiredArgsConstructor;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 
-@RequiredArgsConstructor
+@ApplicationScoped
 public class UserDAO {
 
-    private final EntityManager entityManager;
+    @PersistenceContext(unitName = "userPU")
+    EntityManager em;
 
+    @Transactional
     public void save(User user) {
-        var transaction = entityManager.getTransaction();
-        try {
-            transaction.begin();
-            entityManager.persist(user);
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction.isActive()) {
-                transaction.rollback();
-            }
-        } finally {
-            entityManager.close();
-        }
+        em.persist(user);
     }
 
 }

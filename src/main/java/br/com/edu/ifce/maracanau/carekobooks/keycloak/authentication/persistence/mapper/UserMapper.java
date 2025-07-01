@@ -1,4 +1,4 @@
-package br.com.edu.ifce.maracanau.carekobooks.keycloak.authentication.mapper;
+package br.com.edu.ifce.maracanau.carekobooks.keycloak.authentication.persistence.mapper;
 
 import br.com.edu.ifce.maracanau.carekobooks.keycloak.authentication.persistence.model.User;
 
