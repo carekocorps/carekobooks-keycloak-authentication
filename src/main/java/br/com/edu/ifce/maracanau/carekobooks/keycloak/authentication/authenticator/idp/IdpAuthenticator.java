@@ -2,24 +2,25 @@ package br.com.edu.ifce.maracanau.carekobooks.keycloak.authentication.authentica
 
 import br.com.edu.ifce.maracanau.carekobooks.keycloak.authentication.persistence.mapper.UserMapper;
 import br.com.edu.ifce.maracanau.carekobooks.keycloak.authentication.persistence.dao.UserDAO;
-import jakarta.inject.Inject;
-import lombok.RequiredArgsConstructor;
 import org.keycloak.authentication.AuthenticationFlowContext;
 import org.keycloak.authentication.AuthenticationFlowError;
 import org.keycloak.authentication.authenticators.broker.AbstractIdpAuthenticator;
 import org.keycloak.authentication.authenticators.broker.util.SerializedBrokeredIdentityContext;
 import org.keycloak.broker.provider.BrokeredIdentityContext;
+import org.keycloak.connections.jpa.JpaConnectionProvider;
 import org.keycloak.models.KeycloakSession;
 import org.keycloak.models.RealmModel;
 import org.keycloak.models.UserModel;
 
 import java.util.UUID;
 
-@RequiredArgsConstructor
 public class IdpAuthenticator extends AbstractIdpAuthenticator {
 
-    @Inject
-    UserDAO userDAO;
+    private final UserDAO userDAO;
+
+    public IdpAuthenticator(KeycloakSession keycloakSession) {
+        userDAO = new UserDAO(keycloakSession.getProvider(JpaConnectionProvider.class, "user-storage").getEntityManager());
+    }
 
     @Override
     protected void authenticateImpl(AuthenticationFlowContext authenticationFlowContext, SerializedBrokeredIdentityContext serializedBrokeredIdentityContext, BrokeredIdentityContext brokeredIdentityContext) {

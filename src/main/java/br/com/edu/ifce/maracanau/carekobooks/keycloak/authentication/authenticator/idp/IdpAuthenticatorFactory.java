@@ -18,7 +18,6 @@ import static org.keycloak.models.AuthenticationExecutionModel.Requirement.REQUI
 public class IdpAuthenticatorFactory implements AuthenticatorFactory {
 
     private static final AuthenticationExecutionModel.Requirement[] REQUIREMENT_CHOICES = {DISABLED, REQUIRED};
-    private static final IdpAuthenticator SINGLETON = new IdpAuthenticator();
 
     @Override
     public String getId() {
@@ -62,7 +61,7 @@ public class IdpAuthenticatorFactory implements AuthenticatorFactory {
 
     @Override
     public Authenticator create(KeycloakSession keycloakSession) {
-        return SINGLETON;
+        return new IdpAuthenticator(keycloakSession);
     }
 
     @Override
