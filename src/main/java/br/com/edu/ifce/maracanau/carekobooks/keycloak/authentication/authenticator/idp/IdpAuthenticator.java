@@ -19,7 +19,7 @@ public class IdpAuthenticator extends AbstractIdpAuthenticator {
     private final UserDAO userDAO;
 
     public IdpAuthenticator(KeycloakSession keycloakSession) {
-        userDAO = new UserDAO(keycloakSession.getProvider(JpaConnectionProvider.class, "user-storage").getEntityManager());
+        userDAO = new UserDAO(keycloakSession.getProvider(JpaConnectionProvider.class, "app-storage").getEntityManager());
     }
 
     @Override
@@ -45,7 +45,7 @@ public class IdpAuthenticator extends AbstractIdpAuthenticator {
                 userDAO.save(UserMapper.from(UUID.fromString(newUser.getId()), newUsername));
             } catch (Exception e) {
                 authenticationFlowContext.getSession().users().removeUser(authenticationFlowContext.getRealm(), newUser);
-                authenticationFlowContext.failure(AuthenticationFlowError.IDENTITY_PROVIDER_ERROR);
+                authenticationFlowContext.failure(AuthenticationFlowError.INTERNAL_ERROR);
                 return;
             }
 

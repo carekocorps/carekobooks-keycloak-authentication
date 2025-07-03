@@ -1,1 +1,2 @@
 br.com.edu.ifce.maracanau.carekobooks.keycloak.authentication.authenticator.idp.IdpAuthenticatorFactory
+br.com.edu.ifce.maracanau.carekobooks.keycloak.authentication.authenticator.registration.RegistrationAuthenticatorFactory

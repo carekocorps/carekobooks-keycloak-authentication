@@ -1,5 +1,5 @@
-quarkus.datasource.user-storage.jdbc.transactions=xa
-quarkus.datasource.user-storage.jdbc.url=jdbc:postgresql://carekobooks-postgres:5432/carekobooks
-quarkus.datasource.user-storage.username=postgres
-quarkus.datasource.user-storage.password=Jpisam@hu
-quarkus.datasource.user-storage.db-kind=postgresql
+quarkus.datasource.app-storage.jdbc.transactions=xa
+quarkus.datasource.app-storage.jdbc.url=jdbc:postgresql://carekobooks-postgres:5432/carekobooks
+quarkus.datasource.app-storage.username=postgres
+quarkus.datasource.app-storage.password=Jpisam@hu
+quarkus.datasource.app-storage.db-kind=postgresql
