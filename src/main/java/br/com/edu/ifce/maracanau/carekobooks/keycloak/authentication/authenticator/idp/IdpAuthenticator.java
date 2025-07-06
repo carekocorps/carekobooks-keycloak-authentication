@@ -39,6 +39,7 @@ public class IdpAuthenticator extends AbstractIdpAuthenticator {
                     .addUser(authenticationFlowContext.getRealm(), newUsername);
 
             newUser.setEmail(brokerEmail);
+            newUser.setEmailVerified(true);
             newUser.setEnabled(true);
 
             try {
